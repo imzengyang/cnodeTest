@@ -4,12 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "register":"./node_modules/.bin/cucumber.js.cmd -t @register",
-    "login":"./node_modules/.bin/cucumber.js.cmd -t @login",
-    "topic":"./node_modules/.bin/cucumber.js.cmd -t @topic",
-    "reply":"./node_modules/.bin/cucumber.js.cmd -t @reply",
-    "delete":"./node_modules/.bin/cucumber.js.cmd -t @delete1",
-    "setpass":"./node_modules/.bin/cucumber.js.cmd -t @setpass1",
+    "register": "./node_modules/.bin/cucumber.js.cmd -t @register",
+    "login": "./node_modules/.bin/cucumber.js.cmd -t @login",
+    "topic": "./node_modules/.bin/cucumber.js.cmd -t @topic",
+    "reply": "./node_modules/.bin/cucumber.js.cmd -t @reply",
+    "delete": "./node_modules/.bin/cucumber.js.cmd -t @delete1",
+    "setpass": "./node_modules/.bin/cucumber.js.cmd -t @setpass1",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -25,6 +25,7 @@
   "dependencies": {
     "chromedriver": "^2.33.2",
     "cucumber": "^3.1.0",
+    "mongodb": "^2.2.33",
     "selenium-webdriver": "^3.6.0"
   }
 }
