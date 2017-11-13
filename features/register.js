@@ -1,13 +1,8 @@
 let { defineSupportCode } = require('cucumber');
+let action = require('../uiAction/action');
 let assert = require('assert');
-
-let UserAction = require('../UIAction/UserAction');
-
-
-var MongoClient = require('mongodb').MongoClient;
-
-const url = "mongodb://118.31.19.120:27017/node_club_dev";
-
+let MongoClient = require('mongodb').MongoClient;
+let url = "mongodb://118.31.19.120:27017/node_club_dev";
 defineSupportCode(function ({ Given, When, Then }) {
     Given('进入首页', function () {
         return this.driver.get('http://118.31.19.120:3000/');
@@ -21,19 +16,17 @@ defineSupportCode(function ({ Given, When, Then }) {
     When('导航到注册页面', function () {
         return this.driver.findElement({ css: 'body > div.navbar > div > div > ul > li:nth-child(5) > a' }).click();
     });
-    let registerUserName,registerUserEmail;
-    Then('用户名输入{string},密码输入{string},确认密码输入{string},邮箱输入{string}点击提交按钮，注册成功，提示,{string}', async function (string, string2, string3, string4, string5) {
-        let nowtime = new Date().valueOf();
-        registerUserName = string+nowtime;
-        registerUserEmail = nowtime+string4;
-        return UserAction.userRegister(this.driver, registerUserName, string2, string3, registerUserEmail, string5)
+    let registerUserName, registerUserEmail; // 为什么要定义在外面，在里面下面就报错；
+    Then('用户名输入{string},密码输入{string},确认密码输入{string},邮箱输入{string},点击提交按钮，注册成功，提示,{string}', async function (string, string2, string3, string4, string5) {
+        let day = new Date().valueOf();
+        registerUserName = day + string;
+        registerUserEmail = day + string4;
+        return action.userRegister(this.driver, registerUserName, string2, string3, registerUserEmail, string5);
     });
-
-    When('用户名输入{string},密码输入{string},确认密码输入{string},邮箱输入{string}点击注册的按钮，得到提示{string}', async function (string, string2, string3, string4, string5) {
-        return UserAction.userRegister(this.driver, string, string2, string3, string4, string5, "error");
+    Then('用户名输入{string},密码输入{string},确认密码输入{string},邮箱输入{string},点击注册的按钮，得到提示{string}', async function (string, string2, string3, string4, string5) {
+        return action.userRegister(this.driver, string, string2, string3, string4, string5, 'error');
     });
-
-    Then('修改数据库,激活用户', async function () {
+    Then('链接数据库，激活邮箱', function () {
         MongoClient.connect(url, function (err, db) {
             assert.equal(null, err);
             console.log("Connected correctly to server");
@@ -45,10 +38,8 @@ defineSupportCode(function ({ Given, When, Then }) {
             db.close();
         });
     });
-
-    Then('使用刚才注册的用户密码为{string}应该可以正确登录', async function (password) {
+    Then('用刚才输出的密码{string}可以成功登录', async function (string) {
         await this.driver.get("http://118.31.19.120:3000/signin");
-        return UserAction.userLogin(this.driver,`${registerUserName}`,password,`${registerUserName}`);
+        return action.userLogin(this.driver, `${registerUserName}`, string, `${registerUserName}`);
     });
-
 })

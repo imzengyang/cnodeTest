@@ -12,13 +12,15 @@ Feature: posted  function test
     @topic1
     Scenario Outline: 选择不同板块，发帖成功 
         When 导航到发帖页面
-        Then  板块选择'<plate>',标题输入'<title>',点击照片输入路径'<path>' ，输入内容'<content>' 
-        Then 点击提交按钮，跳转到首页，得到新的话题标题'<title>'
+        Then 板块选择'<plate>',标题输入'<title>',点击照片输入路径'<path>' ，输入内容'<content>' 
+        Then 点击提交按钮，成功或失败'<issucee>'，成功跳转到首页，得到新的话题标题, 失败得到失败信息'<errormsg>'
         Examples:
-        |plate|title|path|content|title|
-        |分享|今日是周末，大家学习了吗|E://01.png|明天要上班啦，你准备好了吗？|今日是周末，大家学习了吗|
-        |问答|大家好，今天你学习了吗|E://01.png|大家好，今天你学习了吗？|大家好，今天你学习了吗|
-        |招聘|招聘美女一枚，做饭洗衣服|E://01.png|招聘美女一枚，要求全能型人才|招聘美女一枚，做饭洗衣服|
+        |plate|      title         |path    |content                |issucee    |errormsg|
+        |     |招聘美女一枚，做饭洗衣服|abc.jpg|招聘美女一枚，要求全能型人才|taberror|必须选择一个版块！|
+        |分享|今日是周末，大家学习了吗|abc.jpg|明天要上班啦，你准备好了吗？|success||
+        |问答|大家好，今天你学习了吗|abc.jpg|大家好，今天你学习了吗？|success||
+        |招聘|招聘美女一枚，做饭洗衣服|abc.jpg|招聘美女一枚，要求全能型人才|success||
+        |招聘|招聘美女一枚，做饭洗衣服|null||contenterror|内容不可为空|
     
     @topic2
     Scenario Outline: 发帖失败，异常场景
@@ -36,5 +38,6 @@ Feature: posted  function test
         When 导航到发帖页面
         Then 板块选择'请选择',标题输入'6666666666',输入内容'888888888'
         Then 点击提交按钮，跳出弹出框：'必须选择一个版块！'
+    
     
     

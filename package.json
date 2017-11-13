@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "register": "./node_modules/.bin/cucumber.js.cmd -t @register",
-    "login": "./node_modules/.bin/cucumber.js.cmd -t @login",
+    "login": "./node_modules/.bin/cucumber.js.cmd -t @forget1",
     "topic": "./node_modules/.bin/cucumber.js.cmd -t @topic",
     "reply": "./node_modules/.bin/cucumber.js.cmd -t @reply",
     "delete": "./node_modules/.bin/cucumber.js.cmd -t @delete1",
-    "setpass": "./node_modules/.bin/cucumber.js.cmd -t @setpass1",
+    "setpass": "./node_modules/.bin/cucumber.js.cmd -t @setpass",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
